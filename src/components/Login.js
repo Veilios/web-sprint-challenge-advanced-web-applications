@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import * as yup from "yup";
 
 const initialState = {
   username: "",
   password: "",
   errorMessage: ""
 };
-
-const formSchema = yup.object().shape({
-  username: yup.string().required("Username is required"),
-  password: yup.string().required("Password is required")
-});
 
 const Login = () => {
   // make a post request to retrieve a token from the api
@@ -50,25 +44,25 @@ const Login = () => {
       });
   }
 
-  // useEffect(()=>{
-  //   axios
-  //     .delete(`http://localhost:5000/api/colors/1`, {
-  //       headers:{
-  //         'authorization': "ahuBHejkJJiMDhmODZhZi0zaeLTQ4ZfeaseOGZgesai1jZWYgrTA07i73Gebhu98"
-  //       }
-  //     })
-  //     .then(res=>{
-  //       axios.get(`http://localhost:5000/api/colors`, {
-  //         headers:{
-  //           'authorization': ""
-  //         }
-  //       })
-  //       .then(res=> {
-  //         console.log(res);
-  //       });
-  //       console.log(res);
-  //     })
-  // });
+  useEffect(()=>{
+    axios
+      .delete(`http://localhost:5000/api/colors/1`, {
+        headers:{
+          'authorization': "ahuBHejkJJiMDhmODZhZi0zaeLTQ4ZfeaseOGZgesai1jZWYgrTA07i73Gebhu98"
+        }
+      })
+      .then(res=>{
+        axios.get(`http://localhost:5000/api/colors`, {
+          headers:{
+            'authorization': ""
+          }
+        })
+        .then(res=> {
+          console.log(res);
+        });
+        console.log(res);
+      })
+  });
 
   return (
     <>
