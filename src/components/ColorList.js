@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 import EditMenu from "./EditMenu";
 
@@ -23,6 +24,16 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const deleteColor = color => {
+    axiosWithAuth().delete(`http://localhost:5000/api/colors/${color.id}`)
+      .then(res => {
+        console.log("deleteColor ColorList Res: ", res);
+        axiosWithAuth().get(`http://localhost:5000/api/colors`)
+          .then(res => {
+            updateColors(res.data);
+          })
+          .catch(err => console.error("Could not fetch colors(inside ColorList.js): ", err.message));
+      })
+      .catch(err => console.error("Can not delete color: ", err.message));
   };
 
   return (
