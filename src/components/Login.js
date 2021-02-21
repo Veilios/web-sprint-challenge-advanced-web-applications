@@ -5,7 +5,8 @@ import * as yup from "yup";
 
 const initialState = {
   username: "",
-  password: ""
+  password: "",
+  errorMessage: ""
 };
 
 const formSchema = yup.object().shape({
@@ -18,9 +19,6 @@ const Login = () => {
   // when you have handled the token, navigate to the BubblePage route
 
   const [user, setUser] = useState(initialState);
-  const error = {
-    err: false
-  }
   const { push } = useHistory();
 
   const handleChange = e => {
@@ -31,40 +29,46 @@ const Login = () => {
   };
 
   const login = e => {
-    e.preventDefault();
+      e.preventDefault();
   
     axios.post(`http://localhost:5000/api/login`, user)
       .then(res => {
         console.log("Login event handler Res: ", res);
-        localStorage.setItem("token", res.data.payload)
-        error.err = false
+        localStorage.setItem("token", res.data.payload);
+        setUser({
+          ...user,
+          errorMessage: ""
+        });
         push("/private");
       })
       .catch(err => {
-        console.error("Could not log in: ", err.message)
-        error.err = true;
+        console.error("Could not log in: ", err.message);
+        setUser({
+          ...user,
+          errorMessage: "Username or Password not valid."
+        });
       });
   }
 
-  useEffect(()=>{
-    axios
-      .delete(`http://localhost:5000/api/colors/1`, {
-        headers:{
-          'authorization': "ahuBHejkJJiMDhmODZhZi0zaeLTQ4ZfeaseOGZgesai1jZWYgrTA07i73Gebhu98"
-        }
-      })
-      .then(res=>{
-        axios.get(`http://localhost:5000/api/colors`, {
-          headers:{
-            'authorization': ""
-          }
-        })
-        .then(res=> {
-          console.log(res);
-        });
-        console.log(res);
-      })
-  });
+  // useEffect(()=>{
+  //   axios
+  //     .delete(`http://localhost:5000/api/colors/1`, {
+  //       headers:{
+  //         'authorization': "ahuBHejkJJiMDhmODZhZi0zaeLTQ4ZfeaseOGZgesai1jZWYgrTA07i73Gebhu98"
+  //       }
+  //     })
+  //     .then(res=>{
+  //       axios.get(`http://localhost:5000/api/colors`, {
+  //         headers:{
+  //           'authorization': ""
+  //         }
+  //       })
+  //       .then(res=> {
+  //         console.log(res);
+  //       });
+  //       console.log(res);
+  //     })
+  // });
 
   return (
     <>
@@ -72,8 +76,7 @@ const Login = () => {
         Welcome to the Bubble App!
       </h1>
 
-
-      {error.err === false ? null : <p style={{text: "red"}}>Username or Password not valid.</p>}
+      { user.errorMessage && <h3 className="error" style={{text: "red"}}> { user.errorMessage } </h3> }
       <form onSubmit={login}>
         <label htmlFor="username">Username: </label>
         <input name="username" id="username" onChange={handleChange} type="text" />
