@@ -104,6 +104,22 @@ These goals may or may not be things you have learned in this module but they bu
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. Add your answers to the questions within `interview_answers.md` file. These will not be counted as a part of your sprint score but will be helpful for preparing you for your endorsement interview, and enhancing overall understanding.
 
 1. Explain what a token is used for.
+
+A token is used to verify that the user has authorizatrion to be on a certain page and recieve certain data.
+
 2. What steps can you take in your web apps to keep your data secure?
+
+Creating axiosWithAuth to verify with every api call that the user has authorization, also creating PrivateRoutes to ensure that no user wihtout authorization can access certain pages.
+
 3. Describe how web servers work.
+
+First browser gets the IP address from the domain name, then after getting the IP address the browser requests the url from the web server.
+The web server will respond to the browser request and by sending the pages requested or an error if something goes wrong.
+At the end the browser can show the webpage it asked for if the server does send the page requested without error.
+
 4. Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+Read = GET
+Update = POST/PUT
+Create = PUT/POST
+Delete = DELETE
