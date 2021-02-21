@@ -3,6 +3,7 @@ import axios from "axios";
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 import EditMenu from "./EditMenu";
+import Color from "./Color";
 
 const initialColor = {
   color: "",
@@ -51,22 +52,23 @@ const ColorList = ({ colors, updateColors }) => {
       <p>colors</p>
       <ul>
         {colors.map(color => (
-          <li key={color.color} onClick={() => editColor(color)}>
-            <span>
-              <span className="delete" onClick={e => {
-                    e.stopPropagation();
-                    deleteColor(color)
-                  }
-                }>
-                  x
-              </span>{" "}
-              {color.color}
-            </span>
-            <div
-              className="color-box"
-              style={{ backgroundColor: color.code.hex }}
-            />
-          </li>
+          // <li key={color.color} onClick={() => editColor(color)}>
+          //   <span>
+          //     <span className="delete" onClick={e => {
+          //           e.stopPropagation();
+          //           deleteColor(color)
+          //         }
+          //       }>
+          //         x
+          //     </span>{" "}
+          //     {color.color}
+          //   </span>
+          //   <div
+          //     className="color-box"
+          //     style={{ backgroundColor: color.code.hex }}
+          //   />
+          // </li>
+          <Color color={color} editing={editing} editColor={editColor} deleteColor={deleteColor} />
         ))}
       </ul>
       { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing}/> }
