@@ -42,20 +42,20 @@ Your finished project must include all of the following requirements.
 
 Build a login form to authenticate your users.
 
-* [ ] Construct an AXIOS request to retrieve a token from the server. You'll use this token to interact with the API
-* [ ] Save the token to localStorage
-* [ ] Build a `axiosWithAuth` module to create an instance of axios with the authentication header
-* [ ] Build a `PrivateRoute` component and use it to protect a route that renders the `BubblesPage` component
+* [Done] Construct an AXIOS request to retrieve a token from the server. You'll use this token to interact with the API
+* [Done] Save the token to localStorage
+* [Done] Build a `axiosWithAuth` module to create an instance of axios with the authentication header
+* [Done] Build a `PrivateRoute` component and use it to protect a route that renders the `BubblesPage` component
 
 #### Consuming the API
 
-* [ ] When `BubblePages` renders, make a GET request to fetch the color data for your bubbles.
-* [ ] In `ColorList.js`, complete the `saveEdit` and `deleteColor` functions to make AJAX requests to the API to edit/delete data
-* [ ] Watch and enjoy as your app responds to updates in the data. Check out `Bubbles.js` to see how this is built.
+* [Done] When `BubblePages` renders, make a GET request to fetch the color data for your bubbles.
+* [Done] In `ColorList.js`, complete the `saveEdit` and `deleteColor` functions to make AJAX requests to the API to edit/delete data
+* [Done] Watch and enjoy as your app responds to updates in the data. Check out `Bubbles.js` to see how this is built.
 
 #### Testing
 
-* [ ] Finish the test in `BubblePage.test.js` to test that your app is fetching the bubble data from the API
+* [Done] Finish the test in `BubblePage.test.js` to test that your app is fetching the bubble data from the API
 
 **Notes:**
 * You are welcome to create additional files but **do not move or rename existing files** or folders.
