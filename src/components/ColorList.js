@@ -20,7 +20,17 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-
+    axiosWithAuth().put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        console.log("saveEdit ColorList.js Res: ", res);
+        axiosWithAuth().get(`http://localhost:5000/api/colors`)
+          .then(res => {
+            updateColors(res.data);
+          })
+          .catch(err => console.error("Could not fetch colors(saveEdit ColorList.js): ", err.message));
+          setEditing(false);
+      })
+      .catch(err => console.error("Could not save edit: ", err.message));
   };
 
   const deleteColor = color => {
@@ -31,7 +41,7 @@ const ColorList = ({ colors, updateColors }) => {
           .then(res => {
             updateColors(res.data);
           })
-          .catch(err => console.error("Could not fetch colors(inside ColorList.js): ", err.message));
+          .catch(err => console.error("Could not fetch colors(deleteColor ColorList.js): ", err.message));
       })
       .catch(err => console.error("Can not delete color: ", err.message));
   };
