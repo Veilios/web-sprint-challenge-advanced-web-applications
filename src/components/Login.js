@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import * as yup from "yup";
 
-initialState = {
+const initialState = {
   username: "",
   password: ""
 };
+
+const formSchema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required")
+});
 
 const Login = () => {
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
 
   const [user, setUser] = useState(initialState);
+  const error = {
+    err: false
+  }
+  const { push } = useHistory();
 
   const handleChange = e => {
     setUser({
@@ -19,7 +30,21 @@ const Login = () => {
     });
   };
 
+  const login = e => {
+    e.preventDefault();
   
+    axios.post(`http://localhost:5000/api/login`, user)
+      .then(res => {
+        console.log("Login event handler Res: ", res);
+        localStorage.setItem("token", res.data.payload)
+        error.err = false
+        push("/private");
+      })
+      .catch(err => {
+        console.error("Could not log in: ", err.message)
+        error.err = true;
+      });
+  }
 
   useEffect(()=>{
     axios
@@ -45,11 +70,12 @@ const Login = () => {
     <>
       <h1>
         Welcome to the Bubble App!
-        <p>Build a login page here</p>
       </h1>
 
-      <form>
-        <label htmlFor="username">Username: </label>\
+
+      {error.err === false ? null : <p style={{text: "red"}}>Username or Password not valid.</p>}
+      <form onSubmit={login}>
+        <label htmlFor="username">Username: </label>
         <input name="username" id="username" onChange={handleChange} type="text" />
 
         <label htmlFor="password">Password: </label>
