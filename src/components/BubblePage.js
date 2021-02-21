@@ -8,17 +8,13 @@ import ColorList from "./ColorList";
 const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
 
-  const getData = () => {
+  useEffect(() => {
     axiosWithAuth().get(`http://localhost:5000/api/colors`)
       .then(res => {
         console.log("getData for BubblePage res: ", res.data);
         setColorList(res.data);
       })
       .catch(err => console.error("Could not retrieve colors: ", err.message));
-  };
-
-  useEffect(() => {
-    getData();
   }, []);
 
   return (
